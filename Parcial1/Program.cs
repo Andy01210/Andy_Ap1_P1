@@ -10,7 +10,7 @@ var ConStr = builder.Configuration.GetConnectionString("ConStr");
 builder.Services.AddDbContextFactory<Contexto>(c => c.UseSqlServer(ConStr));
 
 //inyectar el serviceo
-builder.Services.AddScoped<ModelServices> ();
+builder.Services.AddScoped<AutorServices> ();
 
 // Add services to the container.
 builder.Services.AddRazorComponents()

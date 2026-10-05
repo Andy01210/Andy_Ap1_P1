@@ -43,7 +43,7 @@
                             </option>
 
                             <option value ="Autor">
-                                 Autor
+                                 Nacionalidad
                             </option>
 
                         </select>
@@ -75,18 +75,18 @@
                  </div>
                  <div class = "mt-4">
                         <QuickGrid Items = "@listaAutores" class = "table table-bordered">
-                            <PropertyColumn Property="@a => a.IdAutor" Title="Autor Id"Aling = "Align-center"></PropertyColumn>
-                            <PropertyColumn Property="@a=>a.IdAutor" Title="Autor Id"Aling = "Align-center"></PropertyColumn>
-                            <PropertyColumn Property="@a=>a.IdAutor" Title="Autor Id"Aling = "Align-center"></PropertyColumn>
-                            <PropertyColumn Property="@a=>a.IdAutor" Title="Autor Id"Aling = "Align-center"></PropertyColumn>
-                            <PropertyColumn Property="@a=>a.IdAutor" Title="Autor Id"Aling = "Align-center"></PropertyColumn>
-                            <TemplateColum>
+                            <PropertyColumn Property="@(a => a.IdAutor)" Title="Autor Id"Aling = "Align-center"Sortable = "true"></PropertyColumn>
+                            <PropertyColumn Property="@(a=>a.IdAutor)" Title="Autor Id"Aling = "Align-center" Sortable = "true"></PropertyColumn>
+                            <PropertyColumn Property="@(a=>a.IdAutor)" Title="Autor Id"Aling = "Align-center" Sortable = "true"></PropertyColumn>
+                            <PropertyColumn Property="@(a=>a.IdAutor)" Title="Autor Id"Aling = "Align-center" Sortable = "true"></PropertyColumn>
+                            <PropertyColumn Property="@(a=>a.IdAutor)" Title="Autor Id"Aling = "Align-center" Sortable = "true"></PropertyColumn>
+                            <TemplateColumn>
                                 <div>
                                     <a href="@($"/Editar/")"class = "btn btn-outline-warnign">Editar</a>
                                     <a href="@($"/Editar/")"class = "btn btn-outline-danger">Eliminar</a>
                                 </div>
                                 
-                            </TemplateColum> 
+                            </TemplateColumn> 
                         </QuickGrid>
                     </div>
 
@@ -107,9 +107,25 @@
 @code {
        private string filtro = "";
        private string valorFiltro = "";
+       public List<Autor> listaAutores{get; set;} = [];
 
-       private void Buscar() { }
-       private void Restablecer() { }
+         protected async Task OnInitialized()
+    {
+        listaAutores = await AutorServices.ListarTodo;
+    }
 
-       public List<Autor> listaAutores = [];
+
+        public async Task Restablecer(){
+            filtro = string.Empty;
+            valorFiltro =string.Empty;
+            listaAutores = await AutorServices.ListarTodo();
+        }
+
+        public async Taskk Buscar(){
+            if(filtro != ""){
+                if(filtro == "Nombre"){
+                    listaAutores = await AutorServices.GetList(d => d.Nombre.ToLower()).Contain(valorFiltro.ToLower());
+                }
+            }
+        }   
    }

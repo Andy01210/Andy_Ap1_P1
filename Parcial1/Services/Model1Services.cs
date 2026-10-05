@@ -5,7 +5,7 @@ using Parcial1.Contexts;
 namespace Parcial1.Services;
 using System.Linq.Expressions;
 
-public class ModelServices(IDbContextFactory<Contexto> contextFactory) : IService<Autor, int>
+public class AutorServices(IDbContextFactory<Contexto> contextFactory) : IService<Autor, int>
 {
      public async Task<bool> Guardar(Autor entidad)
     {

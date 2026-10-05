@@ -1,0 +1,73 @@
+@page "/Crear/"
+@rendermode InteractiveServer
+
+
+<EditForm Models= @autor OnValidSubmit="@Guardar">
+    <DataAnnotationsValidator/>
+
+    <div class = "container mt-4">
+        <div calss = "card shadow-lg">
+
+            @*Header*@
+            <div class = "card-header text-center">
+                <h3>
+                    <strong>
+                        Crear Autor
+                    </strong>
+                </h3>
+
+            </div>
+
+            @*Body*@
+            <div class ="card-body">
+                <div class = "mt-3">
+                    <label class ="form-label" for="IdAutor">
+                        <strong>
+                            Autor Id
+                        </strong>
+                    </label>
+                    <InputNumber class = "form-control"
+                                Id="IdAutor"
+                                @bind-Value="autor.IdAutor"
+                                readonly>
+                    </InputNumber>
+                </div>
+            </div>
+
+            @*Footer*@
+            <div class = "card-footer text-center">
+                <button type = button
+                        class = "btn btn-secondary"
+                        @onclick = "Volver"
+                        Volver>
+                </button>
+                 <button type = submmit
+                        class = "btn btn-success"
+                        @onclick = "Guardar"
+                        Volver>
+                </button>
+            </div>
+        </div>
+    </div>
+</EditForm>
+
+@code{
+    Autor autor = new Autor();
+    public void Volver()
+    {
+        Navigation.NavigateTo("/Index");
+    }
+
+    public async Task Guardar()
+    {
+        var guardado = await AutorServices.Guardar(autor);
+        if (guardado)
+        {
+            Volver();
+        }
+        else
+        {
+            Volver();
+        }
+    }
+}
