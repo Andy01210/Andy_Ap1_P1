@@ -73,8 +73,32 @@
                         </button >     
                     </div>
                  </div>
+                 <div class = "mt-4">
+                        <QuickGrid Items = "@listaAutores" class = "table table-bordered">
+                            <PropertyColumn Property="@a => a.IdAutor" Title="Autor Id"Aling = "Align-center"></PropertyColumn>
+                            <PropertyColumn Property="@a=>a.IdAutor" Title="Autor Id"Aling = "Align-center"></PropertyColumn>
+                            <PropertyColumn Property="@a=>a.IdAutor" Title="Autor Id"Aling = "Align-center"></PropertyColumn>
+                            <PropertyColumn Property="@a=>a.IdAutor" Title="Autor Id"Aling = "Align-center"></PropertyColumn>
+                            <PropertyColumn Property="@a=>a.IdAutor" Title="Autor Id"Aling = "Align-center"></PropertyColumn>
+                            <TemplateColum>
+                                <div>
+                                    <a href="@($"/Editar/")"class = "btn btn-outline-warnign">Editar</a>
+                                    <a href="@($"/Editar/")"class = "btn btn-outline-danger">Eliminar</a>
+                                </div>
+                                
+                            </TemplateColum> 
+                        </QuickGrid>
+                    </div>
 
-                 
+                <div>
+            <p>
+                <strong>Cantidad: @listaAutores.Count</strong>
+            </p>
+            <p>
+                <strong>Cantidad: @listaAutores.sum(a => a.Sueldo)</strong>
+            </p>
+        </div>
+            
         </div>
     </div>
 </div>
@@ -86,4 +110,6 @@
 
        private void Buscar() { }
        private void Restablecer() { }
+
+       public List<Autor> listaAutores = [];
    }
