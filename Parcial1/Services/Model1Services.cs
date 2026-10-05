@@ -5,10 +5,10 @@ using Parcial1.Contexts;
 namespace Parcial1.Services;
 using System.Linq.Expressions;
 
-public class ModelServices(IDbContextFactory<Contexto> contextFactory) : IService<Model1, int>
+public class ModelServices(IDbContextFactory<Contexto> contextFactory) : IService<Autor, int>
 
 {
-    public Task<Model1?> Buscar(int id)
+    public Task<Autor?> Buscar(int id)
     {
         throw new NotImplementedException();
     }
@@ -18,12 +18,12 @@ public class ModelServices(IDbContextFactory<Contexto> contextFactory) : IServic
         throw new NotImplementedException();
     }
 
-    public Task<List<Model1>> GetList(Expression<Func<Model1, bool>> criterio)
+    public Task<List<Autor>> GetList(Expression<Func<Autor, bool>> criterio)
     {
         throw new NotImplementedException();
     }
 
-    public Task<bool> Guardar(Model1 entidad)
+    public Task<bool> Guardar(Autor entidad)
     {
         throw new NotImplementedException();
     }
