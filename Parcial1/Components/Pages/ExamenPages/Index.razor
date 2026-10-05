@@ -1,0 +1,88 @@
+@page "/Index"
+@rendermode InteractiveServer
+
+
+
+<PageTitle>Pretamos</PageTitle>
+
+<div class= "container">
+    @*Header*@
+    <div class="card shadow-lg">
+        <div class="card-header d-flex justify-content-between align-center mb-4">
+            <h5 class="card-title">Registro de Prestamos</h5>
+            <a href="/Crear/" class="btn btn-primary"> <span class="bi bi-plus-square mt-3"></span> Crear</a>
+        </div>
+
+            @*Body*@
+            <div class="card-body">
+                 @*Labels*@
+                <div class="row">
+                    <div class = "col-3">
+                        <label class ="form-label" for ="Filtro">
+                             <strong>Filtrar por</strong>
+                         </label>
+                    </div>
+                    <div class = "col-3">
+                        <label class ="form-label" for ="Filtro">
+                            <strong>Busqueda</strong>
+                        </label>
+                    </div>
+                </div>
+
+                @*Inputs y botones*@
+                <div class="row">
+                     @*FIltro*@
+                    <div class="col-3">
+                        <select class="form-select" @bind="filtro">
+                             <option value ="">
+                                Elija una opcion
+                            </option>
+
+                            <option value ="Nombre">
+                                Nombre
+                            </option>
+
+                            <option value ="Autor">
+                                 Autor
+                            </option>
+
+                        </select>
+                    </div>
+
+                @*Busqueda*@
+                    <div class = "col-4">
+                        <div class="input-group">
+
+                            <input class ="form-control"
+                                @bind="valorFiltro"
+                                placeholder="Buscar" />
+                            <button type="button"
+                                class = "btn btn-outline-primary"
+                                    @onclick="Buscar">
+                                    buscar
+                            </button>
+                        </div>
+                    </div>
+
+                @*Restablecer*@
+                    <div class = "col-auto">
+                        <button type="button"
+                            class = "btn btn-outline-secondary"
+                                @onclick ="Restablecer">
+                                Restablecer
+                        </button >     
+                    </div>
+                 </div>
+                 
+        </div>
+    </div>
+</div>
+
+
+@code {
+       private string filtro = "";
+       private string valorFiltro = "";
+
+       private void Buscar() { }
+       private void Restablecer() { }
+   }
