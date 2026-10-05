@@ -8,5 +8,6 @@ public Contexto(DbContextOptions<Contexto> options) : base(options){
 
 }
 
+public DbSet<Autor> Autor{get; set;}
 
 }
