@@ -1,73 +1,117 @@
 @page "/Crear/"
 @rendermode InteractiveServer
 
-
-<EditForm Models= @autor OnValidSubmit="@Guardar">
+<PageTitle>Crear Autor</PageTitle>
+<EditForm Model="@autor" OnValidSubmit="@Guardar">
     <DataAnnotationsValidator/>
 
-    <div class = "container mt-4">
-        <div calss = "card shadow-lg">
-
-            @*Header*@
-            <div class = "card-header text-center">
+    <div class="container mt-4">
+        <div class="card shadow-lg">
+              @*header*@
+            <div class="card-header text-center">
                 <h3>
-                    <strong>
-                        Crear Autor
-                    </strong>
+                    <strong>Crear un nuveo libro</strong>
                 </h3>
-
             </div>
-
+            
+            
             @*Body*@
             <div class ="card-body">
-                <div class = "mt-3">
-                    <label class ="form-label" for="IdAutor">
-                        <strong>
-                            Autor Id
-                        </strong>
-                    </label>
-                    <InputNumber class = "form-control"
-                                Id="IdAutor"
-                                @bind-Value="autor.IdAutor"
-                                readonly>
-                    </InputNumber>
-                </div>
+            
+                    <div class="mt-3">
+                        <label class="form-label" for="IdAutor">
+                            <strong>Autor Id</strong>
+                        </label>
+                        <InputNumber class="form-control"
+                                    id="IdAutor"
+                                    @bind-Value="autor.IdAutor"
+                                    readoly>
+                        </InputNumber>
+                    </div>
+
+                     <div class="mt-3">
+                        <label class="form-label" for="Nombre">
+                            <strong>Nombre</strong>
+                        </label>
+                        <InputText class="form-control"
+                                    id="Nombre"
+                                    @bind-Value="autor.Nombre"
+                                    >
+                        </InputText>
+                    </div>
+
+                    <div class="mt-3">
+                        <label class="form-label" for="Nacionalidad">
+                            <strong>Nacionalidad</strong>
+                        </label>
+                        <InputText class="form-control"
+                                    id="Nacionalidad"
+                                    @bind-Value="autor.Nacionalidad"
+                                    >
+                        </InputText>
+                    </div>
+
+                    <div class="mt-3">
+                        <label class="form-label" for="FechaNacimiento">
+                            <strong>Fecha de nacimiento</strong>
+                        </label>
+                        <InputDate class="form-control"
+                                    id="FechaNacimiento"
+                                    @bind-Value="autor.FechaNacimiento"
+"
+                                    >
+                        </InputDate>
+                    </div>
+
+                    <div class="mt-3">
+                        <label class="form-label" for="Sueldo">
+                            <strong>Sueldo</strong>
+                        </label>
+                        <InputNumber class="form-control"
+                                    id="Sueldo"
+                                    @bind-Value="autor.Sueldo"
+                                    >
+                        </InputNumber>
+                    </div>
+
+                 
             </div>
 
             @*Footer*@
             <div class = "card-footer text-center">
-                <button type = button
-                        class = "btn btn-secondary"
-                        @onclick = "Volver"
-                        Volver>
+                <button type="button"
+                        class="btn btn-outline-primary"
+                        @onclick="Volver">
+                    Volver
                 </button>
-                 <button type = submmit
-                        class = "btn btn-success"
-                        @onclick = "Guardar"
-                        Volver>
+                  <button type="button"
+                        class="btn btn-success"
+                        @onclick="Guardar">
+                    Crear
                 </button>
             </div>
+          
         </div>
     </div>
 </EditForm>
 
 @code{
-    Autor autor = new Autor();
-    public void Volver()
+   private Autor autor = new Autor();
+
+    private async Task Guardar()
+    {
+        var crear = await AutorServices.Guardar(autor);
+        if (crear)
+        {
+            Volver();
+        }
+    }
+
+    private void Volver()
     {
         Navigation.NavigateTo("/Index");
     }
-
-    public async Task Guardar()
-    {
-        var guardado = await AutorServices.Guardar(autor);
-        if (guardado)
-        {
-            Volver();
-        }
-        else
-        {
-            Volver();
-        }
     }
-}
+
+
+

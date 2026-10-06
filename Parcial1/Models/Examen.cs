@@ -8,7 +8,7 @@ namespace  Parcial1.Models;
         [Required(ErrorMessage ="Debe ingresar el nombre del autor")]
         public string? Nombre { get; set; }
         [Required(ErrorMessage ="Debe ingresar el nombre del autor")]
-        public int Nacionalidad { get; set; }
+        public string? Nacionalidad { get; set; }
         [Required(ErrorMessage ="Debe ingresar el nombre del autor")]
         public DateOnly FechaNacimiento { get; set; }
         [Required(ErrorMessage ="Debe ingresar el nombre del autor")]

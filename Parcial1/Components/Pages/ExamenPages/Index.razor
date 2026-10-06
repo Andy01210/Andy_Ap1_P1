@@ -42,7 +42,7 @@
                                 Nombre
                             </option>
 
-                            <option value ="Autor">
+                            <option value ="Nacionalidad">
                                  Nacionalidad
                             </option>
 
@@ -74,31 +74,28 @@
                     </div>
                  </div>
                  <div class = "mt-4">
-                        <QuickGrid Items = "@listaAutores" class = "table table-bordered">
-                            <PropertyColumn Property="@(a => a.IdAutor)" Title="Autor Id"Aling = "Align-center"Sortable = "true"></PropertyColumn>
-                            <PropertyColumn Property="@(a=>a.IdAutor)" Title="Autor Id"Aling = "Align-center" Sortable = "true"></PropertyColumn>
-                            <PropertyColumn Property="@(a=>a.IdAutor)" Title="Autor Id"Aling = "Align-center" Sortable = "true"></PropertyColumn>
-                            <PropertyColumn Property="@(a=>a.IdAutor)" Title="Autor Id"Aling = "Align-center" Sortable = "true"></PropertyColumn>
-                            <PropertyColumn Property="@(a=>a.IdAutor)" Title="Autor Id"Aling = "Align-center" Sortable = "true"></PropertyColumn>
-                            <TemplateColumn>
+                        <QuickGrid Items = "@listaAutores.AsQueryable()" class = "table table-bordered">
+                            <PropertyColumn Property="@(a => a.IdAutor)" Title="Autor Id"Align = "Align.Center"Sortable = "true"></PropertyColumn>
+                            <PropertyColumn Property="@(a=>a.Nombre)" Title="Nombre Autor"Align = "Align.Center" Sortable = "true"></PropertyColumn>
+                            <PropertyColumn Property="@(a=>a.Nacionalidad)" Title="Nacionalidad"Align = "Align.Center" Sortable = "true"></PropertyColumn>
+                            <PropertyColumn Property="@(a=>a.FechaNacimiento)" Title="Fecha de Nacimiento"Align = "Align.Center" Sortable = "true"></PropertyColumn>
+                            <PropertyColumn Property="@(a=>a.Sueldo)" Title="Sueldo"Align = "Align.Center" Sortable = "true"></PropertyColumn>
+                            <TemplateColumn Title = "Acciones">
                                 <div>
-                                    <a href="@($"/Editar/")"class = "btn btn-outline-warnign">Editar</a>
-                                    <a href="@($"/Editar/")"class = "btn btn-outline-danger">Eliminar</a>
+                                    <a href = "@($"/Editar/{context.IdAutor}")"class ="btn btn-outline-warning">Editar</a>
+                                    <a href = "@($"/Editar/{context.IdAutor}")"class ="btn btn-outline-danger">Eliminar</a>
                                 </div>
-                                
                             </TemplateColumn> 
                         </QuickGrid>
                     </div>
-
                 <div>
-            <p>
-                <strong>Cantidad: @listaAutores.Count</strong>
-            </p>
-            <p>
-                <strong>Cantidad: @listaAutores.sum(a => a.Sueldo)</strong>
-            </p>
-        </div>
-            
+                    <p>
+                        <strong>Cantidad: @listaAutores.Count</strong>
+                    </p>
+                    <p>
+                        <strong>Suma de sueldo: @listaAutores.Sum(a => a.Sueldo)</strong>
+                    </p>
+                </div>
         </div>
     </div>
 </div>
@@ -107,13 +104,12 @@
 @code {
        private string filtro = "";
        private string valorFiltro = "";
-       public List<Autor> listaAutores{get; set;} = [];
+         public List<Autor> listaAutores= [];
 
-         protected async Task OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        listaAutores = await AutorServices.ListarTodo;
+        listaAutores = await AutorServices.GetList(p => p.IdAutor >0);
     }
-
 
         public async Task Restablecer(){
             filtro = string.Empty;
@@ -121,11 +117,16 @@
             listaAutores = await AutorServices.ListarTodo();
         }
 
-        public async Taskk Buscar(){
+        public async Task Buscar(){
             if(filtro != ""){
                 if(filtro == "Nombre"){
-                    listaAutores = await AutorServices.GetList(d => d.Nombre.ToLower()).Contain(valorFiltro.ToLower());
+                    listaAutores = await AutorServices.GetList(d => d.Nombre.ToLower().Contains(valorFiltro.ToLower()));
+                }
+                if(filtro == "Nacionalidad"){
+                    listaAutores = await AutorServices.GetList(d => d.Nacionalidad.ToLower().Contains(valorFiltro.ToLower()));
                 }
             }
-        }   
+        } 
+
+         
    }
